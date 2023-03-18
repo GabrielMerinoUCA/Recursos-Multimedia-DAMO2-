@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/menu">
+
+    <fragment
+        android:id="@+id/menu"
+        android:name="ni.edu.uca.recursosmultimedia.menu"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/acMenu_MaterialMultimedia"
+            app:destination="@id/materialMultimedia" />
+        <action
+            android:id="@+id/acMenu_ReproduccionRemota"
+            app:destination="@id/reproduccionRemota" />
+        <action
+            android:id="@+id/acMenu_EnrutadorMedios"
+            app:destination="@id/enrutadorMedios" />
+    </fragment>
+    <fragment
+        android:id="@+id/materialMultimedia"
+        android:name="ni.edu.uca.recursosmultimedia.MaterialMultimedia"
+        android:label="fragment_material_multimedia"
+        tools:layout="@layout/fragment_material_multimedia" />
+    <fragment
+        android:id="@+id/reproduccionRemota"
+        android:name="ni.edu.uca.recursosmultimedia.ReproduccionRemota"
+        android:label="fragment_reproduccion_remota"
+        tools:layout="@layout/fragment_reproduccion_remota" />
+    <fragment
+        android:id="@+id/enrutadorMedios"
+        android:name="ni.edu.uca.recursosmultimedia.EnrutadorMedios"
+        android:label="fragment_enrutador_medios"
+        tools:layout="@layout/fragment_enrutador_medios" />
+</navigation>

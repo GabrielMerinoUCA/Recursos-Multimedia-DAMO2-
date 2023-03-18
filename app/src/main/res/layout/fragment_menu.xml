@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".menu">
+
+    <Button
+        android:id="@+id/btnMaterialMultimedia"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Acceso y carga de material multimedia"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnReproduccionRemota"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnReproduccionRemota"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Reproduccion Remota"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEnrutadorMedios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMaterialMultimedia" />
+
+    <Button
+        android:id="@+id/btnEnrutadorMedios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Acceso y carga de material multimedia"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReproduccionRemota" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
