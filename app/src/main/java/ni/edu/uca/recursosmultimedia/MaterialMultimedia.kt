@@ -1,10 +1,21 @@
 package ni.edu.uca.recursosmultimedia
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.ImageRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import ni.edu.uca.recursosmultimedia.databinding.FragmentMaterialMultimediaBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,7 +31,10 @@ class MaterialMultimedia : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private lateinit var fbinding: FragmentMaterialMultimediaBinding
+    var imagen: ImageView?=null
+    var request: RequestQueue?=null
+    var imagenURL: EditText?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,7 +48,41 @@ class MaterialMultimedia : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_material_multimedia, container, false)
+        fbinding = FragmentMaterialMultimediaBinding.inflate(layoutInflater)
+        imagen= fbinding.ivImagen
+        request= Volley.newRequestQueue(activity)
+        imagenURL = fbinding.etURL
+        fbinding.btnCargarImagen.setOnClickListener{
+            cargarImagen()
+        }
+        fbinding.btnLimpiar.setOnClickListener{
+            borrarURL()
+        }
+        return fbinding.root
+    }
+
+    fun borrarURL(){
+        imagenURL?.setText("")
+    }
+
+    private fun cargarImagen() {
+        var url = "${imagenURL?.text.toString()}"
+        val imageRequest = ImageRequest(
+            url,
+            {bitmap -> // response listener
+
+                imagen?.setImageBitmap(bitmap)
+
+            },
+            0, // max width
+            0, // max height
+            ImageView.ScaleType.CENTER_CROP, // image scale type
+            Bitmap.Config.ARGB_8888, // decode config
+            {error-> // error listener
+                Toast.makeText(activity, "No ha escrito URL o la URL es incorrecta", Toast.LENGTH_LONG).show()
+            }
+        )
+        request?.add(imageRequest)
     }
 
     companion object {
