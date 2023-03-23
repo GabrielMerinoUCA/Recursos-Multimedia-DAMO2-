@@ -5,6 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.util.MimeTypes
+
+import ni.edu.uca.recursosmultimedia.databinding.FragmentEnrutadorMediosBinding
+import ni.edu.uca.recursosmultimedia.databinding.FragmentReproduccionRemotaBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +27,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class EnrutadorMedios : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var simpleExoPlayerView: PlayerView
+    private lateinit var player: SimpleExoPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -34,8 +40,42 @@ class EnrutadorMedios : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_enrutador_medios, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_enrutador_medios, container, false)
+        simpleExoPlayerView = view.findViewById(R.id.video_player_view)
+        return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+
+        initializePlayer()
+
+    }
+
+    private fun initializePlayer() {
+
+        val trackSelector = DefaultTrackSelector(requireContext()).apply {
+            setParameters(buildUponParameters().setMaxVideoSizeSd())
+        }
+
+        player = SimpleExoPlayer.Builder(requireContext()).setTrackSelector(trackSelector).build()
+        simpleExoPlayerView.player = player
+
+        val mediaItem = MediaItem.Builder().setUri(getString(R.string.media_url_dash)).setMimeType(MimeTypes.APPLICATION_MPD).build()
+
+        player.setMediaItem(mediaItem)
+        player.prepare()
+        player.play()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
+    }
+
 
     companion object {
         /**
@@ -56,4 +96,6 @@ class EnrutadorMedios : Fragment() {
                 }
             }
     }
+
+
 }
